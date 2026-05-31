@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import heroImage from './assets/01STR2_INSPIRATION.png'
+import heroImage from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
 
 function App() {
   const [formData, setFormData] = useState({
