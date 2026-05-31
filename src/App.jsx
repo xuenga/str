@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import heroImage from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import logoCimelo from './assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
+import mainLogo from './assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
+import qrCodeImage from './assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -53,20 +56,7 @@ function App() {
       <header className="header">
         <div className="container header-inner">
           <div className="logo-container">
-            <span className="logo-text">
-              <span className="logo-s">S</span>
-              <span className="logo-t">T
-                <span style={{
-                  position: 'absolute',
-                  top: '-2px',
-                  right: '-6px',
-                  fontSize: '12px',
-                  color: '#4f7744'
-                }}>🌿</span>
-              </span>
-              <span className="logo-r">R</span>
-            </span>
-            <span className="logo-tagline">Une autre vision du funéraire</span>
+            <img src={mainLogo} alt="STR - Une autre vision du funéraire" style={{ height: '45px', objectFit: 'contain' }} />
           </div>
 
           <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
@@ -156,10 +146,7 @@ function App() {
           id="accueil"
           className="hero animate-fade-in"
           style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundImage: `url(${heroImage})`
           }}
         >
           <div className="hero-overlay" />
@@ -167,10 +154,10 @@ function App() {
             <div className="hero-content">
               <h1 className="hero-title">
                 <span>STR</span>
-                Une autre vision du funéraire
+                Une autre vision<br />du funéraire
               </h1>
               <p className="hero-description">
-                Prenez soin de la mémoire de vos proches, même à distance. Nous concevons des havres de paix naturels, durables et connectés pour un souvenir vivant, digne et apaisant.
+                Prenez soin de la mémoire de vos proches, même à distance. Nous créons des espaces de paix naturels et durables, où le souvenir demeure vivant et apaisant.
               </p>
               <div className="hero-buttons">
                 <a href="#paysager" className="btn btn-primary">Découvrir nos créations</a>
@@ -186,15 +173,18 @@ function App() {
             <div className="section-header">
               <span className="section-subtitle">Sépultures paysagères</span>
               <h2 className="section-title">Des créations uniques</h2>
-              <p className="section-description">
-                Nous redéfinissons le monument funéraire en créant des jardins miniatures personnalisés qui honorent la vie et s'intègrent harmonieusement à la nature. Partenariat exclusif avec <strong>Cimélo</strong>
-              </p>
+              <div className="section-description">
+                Nous redéfinissons le monument funéraire en créant des jardins miniatures personnalisés qui honorent la vie et s'intègrent harmonieusement à la nature. Partenariat exclusif avec :
+                <div style={{ marginTop: '8px' }}>
+                  <a href="https://cimelo.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                    <img src={logoCimelo} alt="Logo Cimélo" style={{ height: '50px', objectFit: 'contain' }} />
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="service-card-large">
-              <div className="card-bg-gradient" />
               <div>
-                <div className="card-icon">🌳</div>
                 <div className="card-content">
                   <h3>L'alliance du vivant, du minéral et de l'acier Corten</h3>
                   <p>
@@ -222,20 +212,18 @@ function App() {
           <div className="container">
             <div className="section-header">
               <span className="section-subtitle">Mémorial numérique</span>
-              <h2 className="section-title">QR Code connectés</h2>
+              <h2 className="section-title">QR Codes connectés</h2>
               <p className="section-description">
                 Une passerelle entre le lieu de recueillement physique et les souvenirs numériques de toute une vie. Grâce à notre partenariat avec <strong>Memorialis.shop</strong>, offrez à vos proches un hommage interactif éternel.
               </p>
             </div>
 
             <div className="service-card-large card-gold">
-              <div className="card-bg-gradient" />
               <div>
-                <div className="card-icon">✨</div>
                 <div className="card-content">
                   <h3>La plaque funéraire connectée par QR Code</h3>
                   <p>
-                    Une plaque d'une discrétion et d'une élégance absolue en aluminium anodisé ou en plexiglass, gravée d'un QR code haute précision. Fixée sur le monument, elle permet à chaque visiteur de scanner le code pour entrer dans l'intimité des souvenirs de l'être cher.
+                    Une plaque d'une discrétion et d'une élégance absolue en aluminium anodisé, gravée d'un QR code haute précision. Fixée sur le monument, elle permet à chaque visiteur de scanner le code pour entrer dans l'intimité des souvenirs de l'être cher.
                   </p>
                   <ul className="card-features">
                     <li><strong>Espace Souvenirs Sécurisé</strong> : Un album photo en ligne, une biographie rédigée, des messages et des hommages de la famille.</li>
@@ -261,22 +249,45 @@ function App() {
                 <span style={{ fontSize: '13px', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }}>
                   Comment ça marche ?
                 </span>
-                <p style={{ maxWidth: '600px', fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px' }}>
-                  1. Nous gravons et installons votre plaque physique sur le monument. <br />
-                  2. Nous créons ensemble l'espace numérique (textes, photos, musiques). <br />
-                  3. Les visiteurs scannent le code et accèdent instantanément à cette constellation de souvenirs.
-                </p>
-                <div className="qr-code-wrapper">
+
+                <div className="how-it-works-grid">
+                  <div className="how-it-works-step">
+                    <span className="step-number">01</span>
+                    <h4 className="step-title">Commandez votre plaque</h4>
+                    <p className="step-desc">Choisissez le modèle et configurez les finitions selon vos préférences.</p>
+                  </div>
+                  <div className="how-it-works-step">
+                    <span className="step-number">02</span>
+                    <h4 className="step-title">Recevez votre QR code</h4>
+                    <p className="step-desc">Dès la validation, un espace est créé. Vous recevez votre plaque sous 5-7 jours.</p>
+                  </div>
+                  <div className="how-it-works-step">
+                    <span className="step-number">03</span>
+                    <h4 className="step-title">Personnalisez le mémorial</h4>
+                    <p className="step-desc">Ajoutez des photos, vidéos et une biographie pour honorer la mémoire de votre proche.</p>
+                  </div>
+                  <div className="how-it-works-step">
+                    <span className="step-number">04</span>
+                    <h4 className="step-title">Partagez avec vos proches</h4>
+                    <p className="step-desc">Invitez famille et amis à découvrir le mémorial et à ajouter leurs témoignages.</p>
+                  </div>
+                </div>
+                <div style={{ marginTop: '32px' }}>
                   <div
+                    className="partner-logo-link"
                     onClick={() => setShowMemorialModal(true)}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      background: 'repeating-conic-gradient(black 0% 25%, white 0% 50%) 50% / 12px 12px',
-                      border: '2px solid black',
-                      cursor: 'pointer'
-                    }}
-                  />
+                    style={{ cursor: 'pointer', padding: '12px' }}
+                  >
+                    <img
+                      src={qrCodeImage}
+                      alt="QR Code de démonstration"
+                      style={{
+                        width: '120px',
+                        height: 'auto',
+                        display: 'block'
+                      }}
+                    />
+                  </div>
                 </div>
                 <span className="memorial-hint">
                   Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir le mémorial d'exemple de STR & Memorialis.
