@@ -467,14 +467,14 @@ button, input, textarea, select {
   position: relative;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: 20% center; /* Mobile: on montre plus du côté gauche (stèle corten) */
   background-repeat: no-repeat;
 }
 
 @media (min-width: 992px) {
   .hero {
     background-size: cover; /* Remplace contain pour une meilleure immersion */
-    background-position: center;
+    background-position: center; /* Bureau: recentré */
   }
 }
 
@@ -492,10 +492,8 @@ button, input, textarea, select {
 
 @media (min-width: 992px) {
   .hero-overlay {
-    /* Grand écran : Double dégradé pour les côtés (gauche/droite) et lisibilité au centre */
-    background: 
-      linear-gradient(to right, rgba(230, 230, 218, 1) 0%, rgba(230, 230, 218, 0.2) 20%, rgba(230, 230, 218, 0.2) 80%, rgba(230, 230, 218, 1) 100%),
-      radial-gradient(circle at center, rgba(230, 230, 218, 0.8) 0%, transparent 60%);
+    /* Grand écran : lisibilité au centre */
+    background: radial-gradient(circle at center, rgba(230, 230, 218, 0.8) 0%, transparent 60%);
   }
 }
 
@@ -505,9 +503,7 @@ button, input, textarea, select {
 
 @media (min-width: 992px) {
   [data-theme="dark"] .hero-overlay {
-    background: 
-      linear-gradient(to right, rgba(10, 11, 13, 1) 0%, rgba(10, 11, 13, 0.4) 20%, rgba(10, 11, 13, 0.4) 80%, rgba(10, 11, 13, 1) 100%),
-      radial-gradient(circle at center, rgba(10, 11, 13, 0.7) 0%, transparent 60%);
+    background: radial-gradient(circle at center, rgba(10, 11, 13, 0.7) 0%, transparent 60%);
   }
 }
 

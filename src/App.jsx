@@ -457,7 +457,7 @@ function App() {
                     <span>Rhône (Lyon, Sud-Lyonnais...)</span>
                   </div>
                   <div className="zone-item">
-                    <span className="zone-badge">ARA</span>
+                    <span className="zone-badge">AURA</span>
                     <span>Auvergne-Rhône-Alpes</span>
                   </div>
                 </div>
@@ -639,7 +639,7 @@ function App() {
           <div className="footer-contact">
             <h5>Contact & Zone</h5>
             <p style={{ fontSize: '13px' }}>📞 +33 (0)7 88 68 93 82</p>
-            <p style={{ fontSize: '13px' }}>📍 Intervention : 42, 43, 69</p>
+            <p style={{ fontSize: '13px' }}>📍 Intervention : 42, 43, 69...</p>
             <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '12px' }}>
               En partenariat avec Cimélo & Memorialis.shop
             </p>
