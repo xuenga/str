@@ -3,6 +3,7 @@ import heroImage from './assets/str-vision-funeraire-creation-tombe-sepulture-pa
 import logoCimelo from './assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import mainLogo from './assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import qrCodeImage from './assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
+import logoMemorialis from './assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -174,27 +175,75 @@ function App() {
               <span className="section-subtitle">Sépultures paysagères</span>
               <h2 className="section-title">Des créations uniques</h2>
               <div className="section-description">
-                Nous redéfinissons le monument funéraire en créant des jardins miniatures personnalisés qui honorent la vie et s'intègrent harmonieusement à la nature. Partenariat exclusif avec :
-                <div style={{ marginTop: '8px' }}>
-                  <a href="https://cimelo.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                    <img src={logoCimelo} alt="Logo Cimélo" style={{ height: '50px', objectFit: 'contain' }} />
-                  </a>
-                </div>
+                Nous redéfinissons le monument funéraire en créant des jardins miniatures personnalisés qui honorent la vie et s'intègrent harmonieusement à la nature.
               </div>
             </div>
 
             <div className="service-card-large">
               <div>
                 <div className="card-content">
-                  <h3>L'alliance du vivant, du minéral et de l'acier Corten</h3>
+                  <h3>L’alliance du vivant, du minéral et de matériaux durables</h3>
                   <p>
-                    Nos sépultures paysagères rejettent la froideur du marbre traditionnel au profit de compositions vivantes et chaleureuses. Chaque aménagement est une œuvre d'art éco-conçue, pensée pour durer et évoluer au gré des saisons.
+                    Nos sépultures paysagères réinventent l’hommage funéraire en privilégiant la chaleur du végétal et l’harmonie des matières naturelles. Chaque aménagement est pensé comme un espace vivant, évolutif et apaisant, conçu pour traverser les saisons avec élégance.
                   </p>
+                  <ul className="card-features" style={{ marginBottom: '16px' }}>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Végétalisation harmonieuse</strong>
+                        Arbustes pérennes (oliviers nains, buis), graminées légères (miscanthus, carex) et floraisons saisonnières sélectionnées pour un rendu vivant toute l’année.
+                      </div>
+                    </li>
+                  </ul>
+
+                  <div style={{ marginBottom: '16px' }}>
+                    <p style={{ fontSize: '14px', marginBottom: '16px' }}>Pour s’adapter à chaque sensibilité, nous proposons plusieurs finitions, toutes sélectionnées pour leur tenue extérieure et leur esthétique intemporelle :</p>
+                    <ul className="card-features" style={{ marginBottom: '24px' }}>
+                      <li>
+                        <div>
+                          <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Acier Corten</strong>
+                          Aspect cuivré et patine auto-protectrice, idéal pour un rendu chaleureux et contemporain.
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Bois durable <span style={{ fontWeight: 'normal', fontSize: '13px' }}>(chêne thermo-chauffé, robinier, mélèze)</span></strong>
+                          Une présence naturelle et douce, parfaite pour les familles recherchant une touche organique et chaleureuse.
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Acier thermolaqué</strong>
+                          Finition lisse et élégante, disponible en teintes sobres (noir, anthracite, brun), résistant aux UV et aux intempéries.
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Composite minéral haut de gamme</strong>
+                          Matériau stable, non poreux, imitant la pierre naturelle sans en reprendre la froideur. Idéal pour un rendu moderne et épuré.
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Ardoise naturelle <span style={{ fontWeight: 'normal', fontSize: '13px' }}>(en option)</span></strong>
+                          Texture fine, teinte profonde, parfaite pour un style discret et poétique.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
                   <ul className="card-features">
-                    <li><strong>Végétalisation soignée</strong> : Arbustes pérennes (oliviers nains, buis), graminées élégantes (miscanthus) et fleurs de saison.</li>
-                    <li><strong>Acier Corten durable</strong> : Structure métallique à l'aspect cuivré et oxydé auto-protecteur, apportant noblesse et chaleur.</li>
-                    <li><strong>Lit de galets naturels</strong> : Finition minérale soignée (galets de rivière ou quartz blanc) invitant au calme et à la méditation.</li>
-                    <li><strong>Zéro entretien lourd</strong> : Concept paysager conçu pour nécessiter un minimum d'arrosage et de taille.</li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Lit de galets naturels</strong>
+                        Galets de rivière, quartz blanc ou granulats décoratifs pour une finition minérale apaisante, invitant au recueillement.
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Zéro entretien lourd</strong>
+                        Chaque composition est pensée pour limiter l’arrosage, réduire la taille et garantir une tenue impeccable toute l’année.
+                      </div>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -203,6 +252,13 @@ function App() {
                   Concevoir un aménagement
                 </a>
               </div>
+            </div>
+
+            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
+              <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
+              <a href="https://cimelo.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                <img src={logoCimelo} alt="Logo Cimélo" style={{ height: '45px', objectFit: 'contain' }} />
+              </a>
             </div>
           </div>
         </section>
@@ -214,7 +270,7 @@ function App() {
               <span className="section-subtitle">Mémorial numérique</span>
               <h2 className="section-title">QR Codes connectés</h2>
               <p className="section-description">
-                Une passerelle entre le lieu de recueillement physique et les souvenirs numériques de toute une vie. Grâce à notre partenariat avec <strong>Memorialis.shop</strong>, offrez à vos proches un hommage interactif éternel.
+                Offrez à vos proches un hommage interactif éternel.
               </p>
             </div>
 
@@ -223,13 +279,35 @@ function App() {
                 <div className="card-content">
                   <h3>La plaque funéraire connectée par QR Code</h3>
                   <p>
-                    Une plaque d'une discrétion et d'une élégance absolue en aluminium anodisé, gravée d'un QR code haute précision. Fixée sur le monument, elle permet à chaque visiteur de scanner le code pour entrer dans l'intimité des souvenirs de l'être cher.
+                    Une plaque discrète et élégante en <strong>aluminium anodisé</strong> ou <strong>inox</strong>, gravée d'un QR code haute précision.<br />
+                    Elle peut être <strong>installée par nos soins</strong> ou <strong>par vous-même</strong> (expédition possible dans toute la France et à l'international).<br />
+                    Une fois fixée sur le monument, elle permet à chaque visiteur d'accéder à un mémorial numérique en ligne.
                   </p>
                   <ul className="card-features">
-                    <li><strong>Espace Souvenirs Sécurisé</strong> : Un album photo en ligne, une biographie rédigée, des messages et des hommages de la famille.</li>
-                    <li><strong>Transmission Intergénérationnelle</strong> : Conservez l'histoire familiale, l'arbre généalogique et les récits de vie accessibles pour les enfants et petits-enfants.</li>
-                    <li><strong>Matériaux de Prestige</strong> : Plaques résistantes aux UV et aux pires intempéries, avec gravure inaltérable.</li>
-                    <li><strong>Simplicité Absolue</strong> : Pas d'application à télécharger. Un simple scan avec l'appareil photo du smartphone suffit.</li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Espace Souvenirs Sécurisé</strong>
+                        Biographie rédigée, album souvenirs (photos/vidéos), hommages de la famille et messages.
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Transmission Intergénérationnelle</strong>
+                        Conservez l’histoire familiale et les récits de vie pour les générations futures. Un patrimoine émotionnel qui ne se perd plus.
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Matériaux de Prestige</strong>
+                        Plaques résistantes aux UV et aux intempéries, avec gravure inaltérable pour une tenue parfaite, année après année.
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '4px' }}>Utilisation simple et immédiate</strong>
+                        Pas d'application à télécharger. Un simple scan avec l'appareil photo du smartphone suffit.
+                      </div>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -241,6 +319,13 @@ function App() {
                   Demander une plaque connectée
                 </a>
               </div>
+            </div>
+
+            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
+              <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
+              <a href="https://www.memorialis.shop/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                <img src={logoMemorialis} alt="Logo Memorialis.shop" style={{ height: '45px', objectFit: 'contain' }} />
+              </a>
             </div>
 
             {/* Encadré d'information sur le concept */}
@@ -300,75 +385,25 @@ function App() {
         {/* MODAL / POP-UP DE DÉMONSTRATION DU MÉMORIAL (MEMORIALIS) */}
         {showMemorialModal && (
           <div className="memorial-modal-overlay">
-            <div className="memorial-modal">
-              {/* Header du Mémorial */}
-              <div className="memorial-modal-header">
+            <div className="memorial-modal" style={{ padding: 0, overflow: 'hidden' }}>
+              <div style={{ padding: '16px 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ fontSize: '18px', margin: 0 }}>Démonstration Interactive</h3>
                 <button
                   onClick={() => setShowMemorialModal(false)}
-                  className="memorial-modal-close"
+                  style={{
+                    background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer',
+                    color: 'var(--text-secondary)', padding: '0', lineHeight: 1
+                  }}
                   aria-label="Fermer"
                 >
                   ✕
                 </button>
-
-                {/* Photo de profil sépia de démonstration */}
-                <div className="memorial-modal-avatar-container">
-                  {/* Avatar poétique / Arbre ou silhouette */}
-                  <span style={{ fontSize: '48px' }}>👴</span>
-                </div>
-
-                <h3 style={{ fontSize: '26px', color: 'var(--text-primary)', fontFamily: 'var(--font-serif)' }}>
-                  Jean-Pierre Dubreuil
-                </h3>
-                <p style={{ fontSize: '13px', color: 'var(--accent)', letterSpacing: '1px', marginTop: '4px' }}>
-                  1942 — 2025
-                </p>
-                <p style={{ fontSize: '14px', fontStyle: 'italic', color: 'var(--text-secondary)', marginTop: '12px' }}>
-                  « Un amoureux de la Haute-Loire, des forêts de pins et des grandes balades en famille. »
-                </p>
               </div>
-
-              {/* Contenu du Mémorial */}
-              <div className="memorial-modal-body">
-                <h4 style={{ fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-primary)', marginBottom: '16px', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px' }}>
-                  🎞️ Galerie de souvenirs
-                </h4>
-
-                {/* Simulation de grille de photos */}
-                <div className="memorial-modal-gallery">
-                  <div className="memorial-gallery-card memorial-gallery-card-1">
-                    <span style={{ fontSize: '24px', marginBottom: '4px' }}>🏕️</span>
-                    <span style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 'bold' }}>Camping en 1974</span>
-                    <span style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>Nostalgie B&W</span>
-                  </div>
-
-                  <div className="memorial-gallery-card memorial-gallery-card-2">
-                    <span style={{ fontSize: '24px', marginBottom: '4px' }}>👨‍👩‍👧‍👦</span>
-                    <span style={{ fontSize: '11px', color: 'var(--green)', fontWeight: 'bold' }}>Noël en Famille</span>
-                    <span style={{ fontSize: '9px', color: 'var(--text-secondary)' }}>Couleurs HD</span>
-                  </div>
-                </div>
-
-                <h4 style={{ fontSize: '16px', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-primary)', marginBottom: '12px', borderBottom: '1px solid var(--border-color)', paddingBottom: '8px' }}>
-                  📜 Hommage de la famille
-                </h4>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '24px' }}>
-                  « Jean-Pierre a passé sa vie à cultiver son jardin à Craponne-sur-Arzon. Sa gentillesse, son humour malicieux et son dévouement pour ses enfants resteront à jamais gravés dans nos cœurs. Ce mémorial en pleine nature et ce souvenir en ligne lui ressemblent tant : simples, vivants et sereins. »
-                </p>
-
-                <div style={{ textAlign: 'center' }}>
-                  <button
-                    onClick={() => setShowMemorialModal(false)}
-                    className="btn btn-primary"
-                    style={{ width: '100%' }}
-                  >
-                    Fermer la démonstration
-                  </button>
-                  <p style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '10px' }}>
-                    Propulsé par Memorialis.shop pour STR
-                  </p>
-                </div>
-              </div>
+              <iframe
+                src="https://memorialis.shop/memorial/demo-memorial"
+                title="Démonstration Memorialis"
+                style={{ width: '100%', height: '75vh', minHeight: '500px', border: 'none', display: 'block' }}
+              />
             </div>
           </div>
         )}
@@ -377,10 +412,10 @@ function App() {
         <section id="services" className="section">
           <div className="container">
             <div className="section-header">
-              <span className="section-subtitle">Prestations de Proximité</span>
+              <span className="section-subtitle">Accompagnement Continu</span>
               <h2 className="section-title">Préservation et Fleurissement</h2>
               <p className="section-description">
-                Pour assurer la tranquillité d'esprit des familles à chaque instant, nous assurons des prestations d'entretien méticuleuses et de fleurissement de proximité.
+                Pour vous assurer une tranquillité d'esprit à chaque instant, nous proposons des services d'entretien méticuleux et un fleurissement personnalisé de vos sépultures.
               </p>
             </div>
 
@@ -392,12 +427,12 @@ function App() {
 
               <div className="service-card-small">
                 <h4><span className="bullet-leaf">✨</span> Rénovation & Dignité</h4>
-                <p>Remise en état des sépultures abîmées ou anciennes, reprise des joints d'étanchéité, re-dorure ou re-peinture des lettrages effacés pour redonner au monument son éclat.</p>
+                <p>Remise en état des sépultures abîmées ou anciennes, reprise des joints d'étanchéité, re-peinture des lettrages effacés pour redonner au monument son éclat.</p>
               </div>
 
               <div className="service-card-small">
-                <h4><span className="bullet-leaf">🌸</span> Fleurissement Régulier</h4>
-                <p>Pose de plantes naturelles de saison adaptées au climat local, ou de compositions artificielles haut de gamme pour fleurir la sépulture aux dates anniversaires ou commémorations.</p>
+                <h4><span className="bullet-leaf">🌸</span> Fleurissement Personnalisé</h4>
+                <p>Pose de plantes naturelles de saison adaptées au climat local ou de compositions artificielles haut de gamme. Nous fleurissons la sépulture à l'occasion d'une date anniversaire, d'une commémoration, ou simplement à la date de votre choix, sans occasion particulière.</p>
               </div>
             </div>
 
