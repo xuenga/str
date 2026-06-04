@@ -4,7 +4,197 @@ import logoCimelo from './assets/logo-cimelo-str-vision-funeraire-creation-tombe
 import mainLogo from './assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import qrCodeImage from './assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
 import logoMemorialis from './assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import logoTransparent from './assets/LOGO_Fond_Transparent.png'
+import logoAura from './assets/region-auvergne-rhone-alpes.svg'
+import logoLoire from './assets/departement-de-la-loire.svg'
+import logoHauteLoire from './assets/departement-de-la-haute-loire.svg'
+import logoRhone from './assets/departement-du-rhone.svg'
+import ent01Avant from './assets/realisations/entretien01-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent01Apres from './assets/realisations/entretien01-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent02Avant from './assets/realisations/entretien02-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent02Apres from './assets/realisations/entretien02-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent03Avant from './assets/realisations/entretien03-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent03Apres from './assets/realisations/entretien03-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
 
+const BeforeAfterSlider = ({ beforeSrc, afterSrc, title }) => {
+  const [sliderValue, setSliderValue] = useState(50);
+
+  const handleSliderChange = (e) => {
+    setSliderValue(parseFloat(e.target.value));
+  };
+
+  return (
+    <div className="ba-container">
+      <img src={afterSrc} alt="Après" className="ba-after" />
+      <div className="ba-before-wrapper" style={{ clipPath: `inset(0 ${100 - sliderValue}% 0 0)` }}>
+        <img src={beforeSrc} alt="Avant" className="ba-before" />
+      </div>
+      <div className="ba-label ba-label-before" style={{ opacity: sliderValue < 50 ? sliderValue / 50 : 1 }}>Avant</div>
+      <div className="ba-label ba-label-after" style={{ opacity: sliderValue > 50 ? (100 - sliderValue) / 50 : 1 }}>Après</div>
+      <div className="ba-title">{title}</div>
+      <div className="ba-handle" style={{ left: `${sliderValue}%` }}></div>
+      <input type="range" min="0" max="100" value={sliderValue} onChange={handleSliderChange} className="ba-slider" />
+    </div>
+  );
+};
+
+const ZoneMap = () => {
+  useEffect(() => {
+    // --- Apparition fluide ---
+    const mapDiv = document.getElementById("map");
+    if (!mapDiv || mapDiv._leaflet_id) return;
+    
+    setTimeout(() => {
+      if (mapDiv) mapDiv.style.opacity = "1";
+    }, 300);
+
+    const centerCoords = [45.3631, 4.2334]; // Pont-Salomon
+    const radius = 40000;
+
+    // --- Fonction responsive ---
+    function getResponsiveParams() {
+      const isMobile = window.innerWidth < 768;
+      return {
+        zoomStart: isMobile ? 7.8 : 8,
+        zoomTarget: isMobile ? 9 : 10,
+        logoWidth: isMobile ? 90 : 120
+      };
+    }
+
+    let { zoomStart, zoomTarget, logoWidth } = getResponsiveParams();
+
+    // --- Initialisation carte ---
+    const map = L.map("map", {
+      zoomControl: true,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false
+    }).setView(centerCoords, zoomStart);
+
+    // --- Fond clair ---
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // --- Animation de zoom ---
+    const flyToTimeout = setTimeout(() => map.flyTo(centerCoords, zoomTarget, { duration: 2 }), 500);
+
+    // --- Cercle pulsant ---
+    const circle = L.circle(centerCoords, {
+      color: "#2f4858",
+      weight: 2,
+      fillColor: "#e0bd3e",
+      fillOpacity: 0.25,
+      radius: radius
+    }).addTo(map);
+
+    // --- Logo STR ---
+    function createLogoIcon(width) {
+      return L.divIcon({
+        html: `
+          <div id="str-logo" style="opacity:0; transition: opacity 1.5s ease;">
+            <img src="${logoTransparent}"
+                 style="width:${width}px; height:auto;" alt="STR Logo" />
+          </div>`,
+        className: "",
+        iconSize: [width, width / 2],
+        iconAnchor: [width / 2, width / 4]
+      });
+    }
+
+    let logoIcon = createLogoIcon(logoWidth);
+    let marker = L.marker(centerCoords, { icon: logoIcon }).addTo(map);
+    marker.bindPopup("<b>STR</b><br>Zone d'intervention : 40 km autour de Pont-Salomon");
+
+    const logoTimeout = setTimeout(() => {
+      const logo = document.getElementById("str-logo");
+      if (logo) logo.style.opacity = "1";
+    }, 2500);
+
+    // --- Effet pulsant ---
+    let growing = true;
+    const intervalId = setInterval(() => {
+      const currentRadius = circle.getRadius();
+      if (growing) {
+        circle.setRadius(currentRadius + 80);
+        if (currentRadius > radius + 1000) growing = false;
+      } else {
+        circle.setRadius(currentRadius - 80);
+        if (currentRadius < radius - 1000) growing = true;
+      }
+    }, 60);
+
+    // --- Réactivation de la navigation ---
+    const dragTimeout = setTimeout(() => {
+      map.dragging.enable();
+      map.scrollWheelZoom.enable();
+      map.doubleClickZoom.enable();
+      map.boxZoom.enable();
+      map.keyboard.enable();
+    }, 3000);
+
+    // --- Responsive dynamique en temps réel ---
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const { zoomTarget: newZoom, logoWidth: newLogoWidth } = getResponsiveParams();
+        map.setView(centerCoords, newZoom);
+
+        // Mise à jour du logo
+        if (marker) map.removeLayer(marker);
+        logoIcon = createLogoIcon(newLogoWidth);
+        marker = L.marker(centerCoords, { icon: logoIcon }).addTo(map);
+        marker.bindPopup("<b>STR</b><br>Zone d'intervention : 40 km autour de Pont-Salomon");
+        setTimeout(() => {
+          const logo = document.getElementById("str-logo");
+          if (logo) logo.style.opacity = "1";
+        }, 300);
+      }, 200);
+    };
+    window.addEventListener("resize", handleResize);
+
+    // --- Légende ---
+    const legend = L.control({ position: "bottomright" });
+    legend.onAdd = function () {
+      const div = L.DomUtil.create("div", "info legend");
+      div.innerHTML = `
+        <div style="
+          background: rgba(255,255,255,0.85);
+          padding: 10px 14px;
+          border-radius: 8px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          font-family: 'Arial', sans-serif;
+          font-size: 13px;
+          color: #2f4858;
+          line-height: 1.4;
+          text-align: right;">
+          <strong>STR</strong><br>
+          Zone d'intervention<br>
+          <span style="color:#e0bd3e;">≈ 40 km autour de Pont-Salomon</span>
+        </div>`;
+      return div;
+    };
+    legend.addTo(map);
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(flyToTimeout);
+      clearTimeout(logoTimeout);
+      clearTimeout(dragTimeout);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", handleResize);
+      map.remove();
+    };
+  }, []);
+
+  return <div id="map" style={{ height: "500px", width: "100%", borderRadius: "12px", overflow: "hidden", opacity: 0, transition: "opacity 1.5s ease", position: "relative", zIndex: 1, marginTop: "24px" }}></div>;
+}
 function App() {
   const [formData, setFormData] = useState({
     nom: '',
@@ -19,6 +209,7 @@ function App() {
 
   // États pour le Mémorial interactif (Démo QR Code)
   const [showMemorialModal, setShowMemorialModal] = useState(false)
+  const [showRealizationsModal, setShowRealizationsModal] = useState(false)
 
   // État pour le menu mobile responsive
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -408,6 +599,41 @@ function App() {
           </div>
         )}
 
+        {/* MODAL / POP-UP DE RÉALISATIONS */}
+        {showRealizationsModal && (
+          <div className="realizations-modal-overlay">
+            <div className="realizations-modal">
+              <div className="realizations-modal-header">
+                <h3>Nos Réalisations</h3>
+                <button
+                  className="realizations-modal-close"
+                  onClick={() => setShowRealizationsModal(false)}
+                  aria-label="Fermer"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="realizations-modal-content">
+                <BeforeAfterSlider 
+                  beforeSrc={ent03Avant}
+                  afterSrc={ent03Apres}
+                  title="Nettoyage approfondi - Cimetière de Pont-Salomon"
+                />
+                <BeforeAfterSlider 
+                  beforeSrc={ent02Avant}
+                  afterSrc={ent02Apres}
+                  title="Nettoyage approfondi - Tombe et soubassement"
+                />
+                <BeforeAfterSlider 
+                  beforeSrc={ent01Avant}
+                  afterSrc={ent01Apres}
+                  title="Nettoyage & Restauration de la pierre"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* SECTION 3: SERVICES COMPLÉMENTAIRES (SECONDAIRES) */}
         <section id="services" className="section">
           <div className="container">
@@ -417,6 +643,13 @@ function App() {
               <p className="section-description">
                 Pour vous assurer une tranquillité d'esprit à chaque instant, nous proposons des services d'entretien méticuleux et un fleurissement personnalisé de vos sépultures.
               </p>
+              <button 
+                className="btn btn-secondary" 
+                style={{ marginTop: '24px' }}
+                onClick={() => setShowRealizationsModal(true)}
+              >
+                📸 Voir nos réalisations
+              </button>
             </div>
 
             <div className="services-secondary">
@@ -437,8 +670,8 @@ function App() {
             </div>
 
             {/* ZONE D'INTERVENTION & PARTENAIRES */}
-            <div className="info-section" style={{ marginTop: '64px' }}>
-              <div className="info-card">
+            <div className="info-section" style={{ marginTop: '64px', display: 'flex', justifyContent: 'center' }}>
+              <div className="info-card" style={{ width: '100%', maxWidth: '900px' }}>
                 <h3>📍 Zone d'Intervention</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
                   Pour garantir la réactivité et la qualité de nos services d'entretien et de création paysagère, nous intervenons exclusivement sur une zone de proximité définie :
@@ -461,20 +694,30 @@ function App() {
                     <span>Auvergne-Rhône-Alpes</span>
                   </div>
                 </div>
-              </div>
+                
+                <ZoneMap mainLogo={mainLogo} />
 
-              <div className="info-card">
-                <h3>🤝 Nos Partenariats de Confiance</h3>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
-                  Afin de proposer le meilleur niveau d'excellence pour nos mémoriaux et aménagements paysagers, nous collaborons avec des experts français reconnus :
-                </p>
-                <div className="partners-logos">
-                  <div className="partner-logo-placeholder">CIMÉLO</div>
-                  <div className="partner-logo-placeholder">MEMORIALIS</div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '32px',
+                  marginTop: '32px',
+                  flexWrap: 'wrap'
+                }}>
+                  <a href="https://www.auvergnerhonealpes.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                    <img src={logoAura} alt="Région Auvergne-Rhône-Alpes" style={{ height: '60px', objectFit: 'contain' }} />
+                  </a>
+                  <a href="https://www.loire.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                    <img src={logoLoire} alt="Département de la Loire" style={{ height: '60px', objectFit: 'contain' }} />
+                  </a>
+                  <a href="https://www.hauteloire.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                    <img src={logoHauteLoire} alt="Département de la Haute-Loire" style={{ height: '60px', objectFit: 'contain' }} />
+                  </a>
+                  <a href="https://www.rhone.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
+                    <img src={logoRhone} alt="Département du Rhône" style={{ height: '60px', objectFit: 'contain' }} />
+                  </a>
                 </div>
-                <p className="partner-desc">
-                  La synergie de la marbrerie paysagère sur-mesure et de la technologie connectée respectueuse de la mémoire.
-                </p>
               </div>
             </div>
           </div>
@@ -638,7 +881,7 @@ function App() {
 
           <div className="footer-contact">
             <h5>Contact & Zone</h5>
-            <p style={{ fontSize: '13px' }}>📞 +33 (0)7 88 68 93 82</p>
+            <p style={{ fontSize: '13px' }}>📞 <a href="tel:+33788689382">07 88 68 93 82</a></p>
             <p style={{ fontSize: '13px' }}>📍 Intervention : 42, 43, 69...</p>
             <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '12px' }}>
               En partenariat avec Cimélo & Memorialis.shop
