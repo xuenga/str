@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react'
-import { Helmet } from 'react-helmet-async'
-import { supabase } from './lib/supabase'
-import heroImage from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
-import logoCimelo from './assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
-import mainLogo from './assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
-import qrCodeImage from './assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
-import logoMemorialis from './assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import heroImage from '../assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import logoCimelo from '../assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
+import mainLogo from '../assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
+import qrCodeImage from '../assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
+import logoMemorialis from '../assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import logoTransparent from './assets/LOGO_Fond_Transparent.png'
-import logoAura from './assets/region-auvergne-rhone-alpes.svg'
-import logoLoire from './assets/departement-de-la-loire.svg'
-import logoHauteLoire from './assets/departement-de-la-haute-loire.svg'
-import logoRhone from './assets/departement-du-rhone.svg'
-import ent01Avant from './assets/realisations/entretien01-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
-import ent01Apres from './assets/realisations/entretien01-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
-import ent02Avant from './assets/realisations/entretien02-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
-import ent02Apres from './assets/realisations/entretien02-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
-import ent03Avant from './assets/realisations/entretien03-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
-import ent03Apres from './assets/realisations/entretien03-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import logoTransparent from '../assets/LOGO_Fond_Transparent.png'
+import logoAura from '../assets/region-auvergne-rhone-alpes.svg'
+import logoLoire from '../assets/departement-de-la-loire.svg'
+import logoHauteLoire from '../assets/departement-de-la-haute-loire.svg'
+import logoRhone from '../assets/departement-du-rhone.svg'
+import ent01Avant from '../assets/realisations/entretien01-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent01Apres from '../assets/realisations/entretien01-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent02Avant from '../assets/realisations/entretien02-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent02Apres from '../assets/realisations/entretien02-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent03Avant from '../assets/realisations/entretien03-tombe-avant-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
+import ent03Apres from '../assets/realisations/entretien03-tombe-apres-loire-haute-loire-rhone-nettoyage-solution-tranquilite-repos-strdu43.jpg'
 
 const BeforeAfterSlider = ({ beforeSrc, afterSrc, title }) => {
   const [sliderValue, setSliderValue] = useState(50);
@@ -29,9 +27,9 @@ const BeforeAfterSlider = ({ beforeSrc, afterSrc, title }) => {
 
   return (
     <div className="ba-container">
-      <img src={afterSrc} alt="Après" className="ba-after" />
+      <img src={afterSrc} alt="Après" className="ba-after" loading="lazy" />
       <div className="ba-before-wrapper" style={{ clipPath: `inset(0 ${100 - sliderValue}% 0 0)` }}>
-        <img src={beforeSrc} alt="Avant" className="ba-before" />
+        <img src={beforeSrc} alt="Avant" className="ba-before" loading="lazy" />
       </div>
       <div className="ba-label ba-label-before" style={{ opacity: sliderValue < 50 ? sliderValue / 50 : 1 }}>Avant</div>
       <div className="ba-label ba-label-after" style={{ opacity: sliderValue > 50 ? (100 - sliderValue) / 50 : 1 }}>Après</div>
@@ -197,28 +195,17 @@ const ZoneMap = () => {
 
   return <div id="map" style={{ height: "500px", width: "100%", borderRadius: "12px", overflow: "hidden", opacity: 0, transition: "opacity 1.5s ease", position: "relative", zIndex: 1, marginTop: "24px" }}></div>;
 }
-function App({ region, depCode }) {
+export default function Home() {
   const [formData, setFormData] = useState({
     nom: '',
     email: '',
     telephone: '',
-    departement: depCode || '43',
+    departement: '43',
     service: 'creation',
     message: ''
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState(null)
   const [activeTab, setActiveTab] = useState('accueil')
-
-  const pageTitle = region 
-    ? `Aménagement & Entretien de Tombes en ${region} (${depCode}) | STR` 
-    : `STR | Une autre vision du funéraire - Aménagement & Mémoire Éternelle`;
-    
-  const pageDescription = region 
-    ? `Découvrez STR en ${region} (${depCode}). Aménagements paysagers funéraires sur-mesure, mémoriaux connectés QR Code, entretien et fleurissement de sépultures dans votre département.` 
-    : `Découvrez STR, une autre vision du funéraire en Loire (42), Haute-Loire (43) et Rhône (69). Aménagements paysagers sur-mesure, mémoriaux connectés par QR Code, entretien et fleurissement.`;
-
 
   // États pour le Mémorial interactif (Démo QR Code)
   const [showMemorialModal, setShowMemorialModal] = useState(false)
@@ -238,30 +225,13 @@ function App({ region, depCode }) {
     setTheme(prev => prev === 'light' ? 'dark' : 'light')
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitError(null)
-
-    try {
-      if (!supabase) {
-        throw new Error("Le client Supabase n'est pas configuré. Veuillez définir les variables VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY.")
-      }
-
-      const { data, error } = await supabase.functions.invoke('send-email', {
-        body: formData
-      })
-
-      if (error) throw error
-      if (data?.error) throw new Error(data.error)
-
-      setIsSubmitted(true)
-    } catch (err) {
-      console.error("Erreur lors de l'envoi :", err)
-      setSubmitError(err.message || "Une erreur est survenue lors de l'envoi de votre demande.")
-    } finally {
-      setIsSubmitting(false)
-    }
+    // Simulation d'envoi du formulaire
+    setIsSubmitted(true)
+    setTimeout(() => {
+      // Optionnel : réinitialiser après quelques secondes
+    }, 5000)
   }
 
   const handleInputChange = (e) => {
@@ -273,102 +243,9 @@ function App({ region, depCode }) {
   }
 
   return (
-    <div className="app-container">
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        {region && <meta name="robots" content="index, follow" />}
-      </Helmet>
-
-      {/* HEADER & NAV */}
-      <header className="header">
-        <div className="container header-inner">
-          <div className="logo-container">
-            <img src={mainLogo} alt="STR - Une autre vision du funéraire" style={{ height: '45px', objectFit: 'contain' }} />
-          </div>
-
-          <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-            <a
-              href="#accueil"
-              className={`nav-link ${activeTab === 'accueil' ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab('accueil');
-                setIsMenuOpen(false);
-              }}
-            >
-              Accueil
-            </a>
-            <a
-              href="#paysager"
-              className={`nav-link ${activeTab === 'paysager' ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab('paysager');
-                setIsMenuOpen(false);
-              }}
-            >
-              Sépultures Paysagères
-            </a>
-            <a
-              href="#memoire"
-              className={`nav-link ${activeTab === 'memoire' ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab('memoire');
-                setIsMenuOpen(false);
-              }}
-            >
-              Mémorial numérique
-            </a>
-            <a
-              href="#services"
-              className={`nav-link ${activeTab === 'services' ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab('services');
-                setIsMenuOpen(false);
-              }}
-            >
-              Entretien / Rénovation
-            </a>
-            <a
-              href="#contact"
-              className="btn btn-primary"
-              style={{ padding: '8px 20px', fontSize: '13px' }}
-              onClick={() => {
-                setActiveTab('contact');
-                setIsMenuOpen(false);
-              }}
-            >
-              Devis Gratuit
-            </a>
-          </nav>
-
-          <div className="header-actions">
-            <button
-              className="theme-toggle"
-              onClick={toggleTheme}
-              aria-label="Basculer le thème"
-              title={theme === 'light' ? "Passer au thème sombre" : "Passer au thème clair"}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                <path fill="currentColor" fillRule="evenodd" d="M277.333 405.333v85.333h-42.667v-85.333zm99.346-58.824l60.34 60.34l-30.17 30.17l-60.34-60.34zm-241.359 0l30.17 30.17l-60.34 60.34l-30.17-30.17zM256 139.353c64.422 0 116.647 52.224 116.647 116.647c0 64.422-52.225 116.647-116.647 116.647A116.427 116.427 0 0 1 139.352 256c0-64.423 52.225-116.647 116.648-116.647m0 42.666c-40.859 0-73.981 33.123-73.981 74.062a73.76 73.76 0 0 0 21.603 52.296c13.867 13.867 32.685 21.64 52.378 21.603zm234.666 52.647v42.667h-85.333v-42.667zm-384 0v42.667H21.333v-42.667zM105.15 74.98l60.34 60.34l-30.17 30.17l-60.34-60.34zm301.7 0l30.169 30.17l-60.34 60.34l-30.17-30.17zM277.332 21.333v85.333h-42.667V21.333z" />
-              </svg>
-            </button>
-
-            <button
-              className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`}
-              onClick={() => setIsMenuOpen(prev => !prev)}
-              aria-label="Ouvrir le menu"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main className="main-content">
-
+  return (
+    <>
+      <div className="home-content">
         {/* HERO SECTION */}
         <section
           id="accueil"
@@ -381,17 +258,11 @@ function App({ region, depCode }) {
           <div className="container hero-grid">
             <div className="hero-content">
               <h1 className="hero-title">
-                {region ? (
-                  <><span>STR en {region}</span> Votre expert funéraire<br />local ({depCode})</>
-                ) : (
-                  <><span>STR</span> Une autre vision<br />du funéraire</>
-                )}
+                <span>STR</span>
+                Une autre vision<br />du funéraire
               </h1>
               <p className="hero-description">
-                {region 
-                  ? `Prenez soin de la mémoire de vos proches en ${region}. Nous créons des espaces de paix naturels et assurons l'entretien des sépultures avec le plus grand respect dans tout le département.` 
-                  : `Prenez soin de la mémoire de vos proches, même à distance. Nous créons des espaces de paix naturels et durables, où le souvenir demeure vivant et apaisant.`
-                }
+                Prenez soin de la mémoire de vos proches, même à distance. Nous créons des espaces de paix naturels et durables, où le souvenir demeure vivant et apaisant.
               </p>
               <div className="hero-buttons">
                 <a href="#paysager" className="btn btn-primary">Découvrir nos créations</a>
@@ -490,7 +361,7 @@ function App({ region, depCode }) {
             <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
               <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
               <a href="https://cimelo.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                <img src={logoCimelo} alt="Logo Cimélo" style={{ height: '45px', objectFit: 'contain' }} />
+                <img src={logoCimelo} alt="Logo Cimélo" style={{ height: '45px', objectFit: 'contain' }} loading="lazy" />
               </a>
             </div>
           </div>
@@ -557,7 +428,7 @@ function App({ region, depCode }) {
             <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
               <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
               <a href="https://www.memorialis.shop/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                <img src={logoMemorialis} alt="Logo Memorialis.shop" style={{ height: '45px', objectFit: 'contain' }} />
+                <img src={logoMemorialis} alt="Logo Memorialis.shop" style={{ height: '45px', objectFit: 'contain' }} loading="lazy" />
               </a>
             </div>
 
@@ -599,6 +470,7 @@ function App({ region, depCode }) {
                     <img
                       src={qrCodeImage}
                       alt="QR Code de démonstration"
+                      loading="lazy"
                       style={{
                         width: '120px',
                         height: 'auto',
@@ -748,49 +620,19 @@ function App({ region, depCode }) {
                   flexWrap: 'wrap'
                 }}>
                   <a href="https://www.auvergnerhonealpes.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                    <img src={logoAura} alt="Région Auvergne-Rhône-Alpes" style={{ height: '60px', objectFit: 'contain' }} />
+                    <img src={logoAura} alt="Région Auvergne-Rhône-Alpes" style={{ height: '60px', objectFit: 'contain' }} loading="lazy" />
                   </a>
                   <a href="https://www.loire.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                    <img src={logoLoire} alt="Département de la Loire" style={{ height: '60px', objectFit: 'contain' }} />
+                    <img src={logoLoire} alt="Département de la Loire" style={{ height: '60px', objectFit: 'contain' }} loading="lazy" />
                   </a>
                   <a href="https://www.hauteloire.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                    <img src={logoHauteLoire} alt="Département de la Haute-Loire" style={{ height: '60px', objectFit: 'contain' }} />
+                    <img src={logoHauteLoire} alt="Département de la Haute-Loire" style={{ height: '60px', objectFit: 'contain' }} loading="lazy" />
                   </a>
                   <a href="https://www.rhone.fr/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                    <img src={logoRhone} alt="Département du Rhône" style={{ height: '60px', objectFit: 'contain' }} />
+                    <img src={logoRhone} alt="Département du Rhône" style={{ height: '60px', objectFit: 'contain' }} loading="lazy" />
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION SEO LOCAL (Phase 2) */}
-        <section className="section" style={{ paddingTop: '0px', paddingBottom: '64px' }}>
-          <div className="container">
-            <div className="seo-local-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
-              
-              <div className="seo-card" style={{ padding: '24px', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-                <h3 style={{ fontSize: '18px', marginBottom: '12px', color: 'var(--text-primary)' }}>Aménagement paysager funéraire</h3>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                  Création de sépultures paysagères uniques en <strong>Haute-Loire (43)</strong>, <strong>Loire (42)</strong> et dans le <strong>Rhône (69)</strong>. Nous offrons une alternative naturelle et apaisante au monument funéraire classique, avec une intervention rapide sur l'ensemble de ces secteurs.
-                </p>
-              </div>
-
-              <div className="seo-card" style={{ padding: '24px', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-                <h3 style={{ fontSize: '18px', marginBottom: '12px', color: 'var(--text-primary)' }}>Nettoyage et entretien de tombe</h3>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                  Service méticuleux d'entretien de sépulture sur toute notre zone (<strong>Loire</strong>, <strong>Haute-Loire</strong>, <strong>Rhône</strong>). Notre nettoyage doux respecte la pierre (granit, marbre) sans produits agressifs, redonnant toute sa dignité au monument où qu'il se trouve.
-                </p>
-              </div>
-
-              <div className="seo-card" style={{ padding: '24px', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-                <h3 style={{ fontSize: '18px', marginBottom: '12px', color: 'var(--text-primary)' }}>Plaque funéraire QR code</h3>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                  Installation de mémoriaux numériques et plaques connectées dans le <strong>42</strong>, le <strong>43</strong> et le <strong>69</strong>. Offrez un espace de recueillement interactif pour perpétuer la mémoire familiale avec notre solution Memorialis, disponible sur tous nos secteurs d'intervention ou en expédition.
-                </p>
-              </div>
-
             </div>
           </div>
         </section>
@@ -802,7 +644,7 @@ function App({ region, depCode }) {
               <span className="section-subtitle">À votre écoute</span>
               <h2 className="section-title">Demander une étude personnalisée</h2>
               <p className="section-description">
-                Qu'il s'agisse d'une création paysagère sur-mesure, de la pose d'une plaque connectée QR Code ou d'une prestation d'entretien {region && `en ${region}`}, nous étudions votre demande avec le plus grand soin. Devis gratuit et sans engagement.
+                Qu'il s'agisse d'une création paysagère sur-mesure, de la pose d'une plaque connectée QR Code ou d'une prestation d'entretien, nous étudions votre demande avec le plus grand soin. Devis gratuit et sans engagement.
               </p>
             </div>
 
@@ -916,13 +758,8 @@ function App({ region, depCode }) {
                   </div>
 
                   <div className="form-submit-container">
-                    {submitError && (
-                      <div style={{ color: '#d32f2f', background: '#ffebee', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px' }}>
-                        ⚠️ {submitError}
-                      </div>
-                    )}
-                    <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '16px' }} disabled={isSubmitting}>
-                      {isSubmitting ? 'Envoi en cours...' : 'Transmettre ma demande de devis gratuit'}
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '16px' }}>
+                      Transmettre ma demande de devis gratuit
                     </button>
                     <span style={{ display: 'block', fontSize: '11px', color: 'var(--text-muted)', marginTop: '12px' }}>
                       🔒 Vos informations restent strictement confidentielles et ne sont utilisées que pour l'établissement de votre étude.
