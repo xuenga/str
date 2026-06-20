@@ -313,7 +313,7 @@ function App({ region, depCode }) {
               Sépultures Paysagères
             </a>
             <a
-              href="/qrcode"
+              href="#memoire"
               className={`nav-link ${activeTab === 'memoire' ? 'active' : ''}`}
               onClick={() => {
                 setActiveTab('memoire');
@@ -549,11 +549,11 @@ function App({ region, depCode }) {
                 </div>
               </div>
               <div className="card-footer" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <button className="btn btn-gold" onClick={() => setShowMemorialModal(true)}>
+                <a href="/qrcode" className="btn btn-gold">
                   Explorer un mémorial de démonstration
-                </button>
-                <a href="#contact" className="btn btn-secondary" onClick={() => setFormData(prev => ({ ...prev, service: 'qrcode' }))}>
-                  Demander une plaque connectée
+                </a>
+                <a href="/qrcode" className="btn btn-secondary">
+                  Commander une plaque qrcode connectée
                 </a>
               </div>
             </div>
@@ -590,10 +590,10 @@ function App({ region, depCode }) {
                   </div>
                 </div>
                 <div style={{ marginTop: '32px' }}>
-                  <div
+                  <a
+                    href="/qrcode"
                     className="partner-logo-link"
-                    onClick={() => setShowMemorialModal(true)}
-                    style={{ cursor: 'pointer', padding: '12px' }}
+                    style={{ cursor: 'pointer', padding: '12px', display: 'block' }}
                   >
                     <img
                       src={qrCodeImage}
@@ -604,7 +604,7 @@ function App({ region, depCode }) {
                         display: 'block'
                       }}
                     />
-                  </div>
+                  </a>
                 </div>
                 <span className="memorial-hint">
                   Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir notre mémorial d'exemple.
