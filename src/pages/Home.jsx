@@ -415,10 +415,10 @@ export default function Home() {
                 </div>
               </div>
               <div className="card-footer" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <a href="/qrcode" className="btn btn-gold">
+                <a href="/?page=qrcode" className="btn btn-gold">
                   Explorer un mémorial de démonstration
                 </a>
-                <a href="/qrcode" className="btn btn-secondary">
+                <a href="/?page=qrcode" className="btn btn-secondary">
                   Commander une plaque qrcode connectée
                 </a>
               </div>
@@ -457,7 +457,7 @@ export default function Home() {
                 </div>
                 <div style={{ marginTop: '32px' }}>
                   <a
-                    href="/qrcode"
+                    href="/?page=qrcode"
                     className="partner-logo-link"
                     style={{ cursor: 'pointer', padding: '12px', display: 'block' }}
                   >

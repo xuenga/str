@@ -36,7 +36,7 @@ export default function QRCodePage() {
           <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
             <a href="/" className="nav-link">Accueil</a>
             <a href="/#paysager" className="nav-link">Sépultures Paysagères</a>
-            <a href="/qrcode" className="nav-link active">Mémorial numérique</a>
+            <a href="/?page=qrcode" className="nav-link active">Mémorial numérique</a>
             <a href="/#services" className="nav-link">Entretien / Rénovation</a>
             <a href="/#contact" className="btn btn-primary" style={{ padding: '8px 20px', fontSize: '13px' }}>
               Devis Gratuit

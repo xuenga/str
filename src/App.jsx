@@ -399,7 +399,7 @@ function App({ region, depCode }) {
               </p>
               <div className="hero-buttons">
                 <a href="#paysager" className="btn btn-primary">Découvrir nos créations</a>
-                <a href="/qrcode" className="btn btn-gold">Mémoriaux QR Code</a>
+                <a href="/?page=qrcode" className="btn btn-gold">Mémoriaux QR Code</a>
               </div>
             </div>
           </div>
@@ -549,10 +549,10 @@ function App({ region, depCode }) {
                 </div>
               </div>
               <div className="card-footer" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <a href="/qrcode" className="btn btn-gold">
+                <a href="/?page=qrcode" className="btn btn-gold">
                   Explorer un mémorial de démonstration
                 </a>
-                <a href="/qrcode" className="btn btn-secondary">
+                <a href="/?page=qrcode" className="btn btn-secondary">
                   Commander une plaque qrcode connectée
                 </a>
               </div>
@@ -591,7 +591,7 @@ function App({ region, depCode }) {
                 </div>
                 <div style={{ marginTop: '32px' }}>
                   <a
-                    href="/qrcode"
+                    href="/?page=qrcode"
                     className="partner-logo-link"
                     style={{ cursor: 'pointer', padding: '12px', display: 'block' }}
                   >
@@ -925,7 +925,7 @@ function App({ region, depCode }) {
             <h5>Prestations</h5>
             <ul>
               <li><a href="#paysager">Sépultures Paysagères</a></li>
-              <li><a href="/qrcode">Mémoriaux Connectés</a></li>
+              <li><a href="/?page=qrcode">Mémoriaux Connectés</a></li>
               <li><a href="#services">Entretien & Rénovation</a></li>
               <li><a href="#services">Fleurissement Saisonniers</a></li>
             </ul>
