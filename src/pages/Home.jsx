@@ -3,7 +3,6 @@ import heroImage from '../assets/str-vision-funeraire-creation-tombe-sepulture-p
 import logoCimelo from '../assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import mainLogo from '../assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import qrCodeImage from '../assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
-import logoMemorialis from '../assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import logoTransparent from '../assets/LOGO_Fond_Transparent.png'
@@ -367,7 +366,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 2: MÉMOIRE ÉTERNELLE (SERVICE INNOVANT MEMORIALIS.SHOP) */}
+        {/* SECTION 2: MÉMOIRE ÉTERNELLE */}
         <section id="memoire" className="section section-dark">
           <div className="container">
             <div className="section-header">
@@ -425,12 +424,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
-              <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
-              <a href="https://www.memorialis.shop/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                <img src={logoMemorialis} alt="Logo Memorialis.shop" style={{ height: '45px', objectFit: 'contain' }} loading="lazy" />
-              </a>
-            </div>
+
 
             {/* Encadré d'information sur le concept */}
             <div className="memorial-demo">
@@ -480,38 +474,14 @@ export default function Home() {
                   </div>
                 </div>
                 <span className="memorial-hint">
-                  Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir le mémorial d'exemple de STR & Memorialis.
+                  Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir notre mémorial d'exemple.
                 </span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* MODAL / POP-UP DE DÉMONSTRATION DU MÉMORIAL (MEMORIALIS) */}
-        {showMemorialModal && (
-          <div className="memorial-modal-overlay">
-            <div className="memorial-modal" style={{ padding: 0, overflow: 'hidden' }}>
-              <div style={{ padding: '16px 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '18px', margin: 0 }}>Démonstration Interactive</h3>
-                <button
-                  onClick={() => setShowMemorialModal(false)}
-                  style={{
-                    background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer',
-                    color: 'var(--text-secondary)', padding: '0', lineHeight: 1
-                  }}
-                  aria-label="Fermer"
-                >
-                  ✕
-                </button>
-              </div>
-              <iframe
-                src="https://memorialis.shop/memorial/demo-memorial"
-                title="Démonstration Memorialis"
-                style={{ width: '100%', height: '75vh', minHeight: '500px', border: 'none', display: 'block' }}
-              />
-            </div>
-          </div>
-        )}
+
 
         {/* MODAL / POP-UP DE RÉALISATIONS */}
         {showRealizationsModal && (
@@ -738,7 +708,7 @@ export default function Home() {
                       onChange={handleInputChange}
                     >
                       <option value="creation">Conception de Sépulture Paysagère sur-mesure (Cimélo)</option>
-                      <option value="qrcode">Plaque Mémorielle connectée QR Code (Memorialis)</option>
+                      <option value="qrcode">Plaque Mémorielle connectée QR Code</option>
                       <option value="entretien">Entretien ponctuel ou fleurissement régulier</option>
                       <option value="renovation">Rénovation complète de sépulture ancienne</option>
                     </select>
@@ -798,7 +768,7 @@ export default function Home() {
             <p style={{ fontSize: '13px' }}>📞 <a href="tel:+33788689382">07 88 68 93 82</a></p>
             <p style={{ fontSize: '13px' }}>📍 Intervention : 42, 43, 69...</p>
             <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '12px' }}>
-              En partenariat avec Cimélo & Memorialis.shop
+              En partenariat avec Cimélo
             </p>
           </div>
         </div>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { supabase } from './lib/supabase'
-import heroImage from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import heroImageLight from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
+import heroImageDark from './assets/str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode-2.webp'
 import logoCimelo from './assets/logo-cimelo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import mainLogo from './assets/logo-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.png'
 import qrCodeImage from './assets/qrcode-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique.png'
-import logoMemorialis from './assets/logo-memorialis-str-vision-funeraire-creation-tombe-sepulture-paysagere-memorial-numerique-qrcode.webp'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import logoTransparent from './assets/LOGO_Fond_Transparent.png'
@@ -47,20 +47,20 @@ const ZoneMap = () => {
     // --- Apparition fluide ---
     const mapDiv = document.getElementById("map");
     if (!mapDiv || mapDiv._leaflet_id) return;
-    
+
     setTimeout(() => {
       if (mapDiv) mapDiv.style.opacity = "1";
     }, 300);
 
-    const centerCoords = [45.3631, 4.2334]; // Pont-Salomon
-    const radius = 40000;
+    const centerCoords = [45.2925, 4.1711]; // Monistrol-sur-Loire
+    const radius = 110000; // Base de 110 km pour pulser entre 100 et 120km
 
     // --- Fonction responsive ---
     function getResponsiveParams() {
       const isMobile = window.innerWidth < 768;
       return {
-        zoomStart: isMobile ? 7.8 : 8,
-        zoomTarget: isMobile ? 9 : 10,
+        zoomStart: isMobile ? 6.5 : 7,
+        zoomTarget: isMobile ? 7.5 : 8,
         logoWidth: isMobile ? 90 : 120
       };
     }
@@ -111,7 +111,7 @@ const ZoneMap = () => {
 
     let logoIcon = createLogoIcon(logoWidth);
     let marker = L.marker(centerCoords, { icon: logoIcon }).addTo(map);
-    marker.bindPopup("<b>STR</b><br>Zone d'intervention : 40 km autour de Pont-Salomon");
+    marker.bindPopup("<b>STR</b><br>Zone d'intervention : jusqu'à 120 km autour de Monistrol-sur-Loire");
 
     const logoTimeout = setTimeout(() => {
       const logo = document.getElementById("str-logo");
@@ -123,11 +123,11 @@ const ZoneMap = () => {
     const intervalId = setInterval(() => {
       const currentRadius = circle.getRadius();
       if (growing) {
-        circle.setRadius(currentRadius + 80);
-        if (currentRadius > radius + 1000) growing = false;
+        circle.setRadius(currentRadius + 500);
+        if (currentRadius > radius + 10000) growing = false; // Pulse max : 120 km
       } else {
-        circle.setRadius(currentRadius - 80);
-        if (currentRadius < radius - 1000) growing = true;
+        circle.setRadius(currentRadius - 500);
+        if (currentRadius < radius - 10000) growing = true; // Pulse min : 100 km
       }
     }, 60);
 
@@ -152,7 +152,7 @@ const ZoneMap = () => {
         if (marker) map.removeLayer(marker);
         logoIcon = createLogoIcon(newLogoWidth);
         marker = L.marker(centerCoords, { icon: logoIcon }).addTo(map);
-        marker.bindPopup("<b>STR</b><br>Zone d'intervention : 40 km autour de Pont-Salomon");
+        marker.bindPopup("<b>STR</b><br>Zone d'intervention : jusqu'à 120 km autour de Monistrol-sur-Loire");
         setTimeout(() => {
           const logo = document.getElementById("str-logo");
           if (logo) logo.style.opacity = "1";
@@ -178,7 +178,7 @@ const ZoneMap = () => {
           text-align: right;">
           <strong>STR</strong><br>
           Zone d'intervention<br>
-          <span style="color:#e0bd3e;">≈ 40 km autour de Pont-Salomon</span>
+          <span style="color:#e0bd3e;">100 km autour de Monistrol-sur-Loire</span>
         </div>`;
       return div;
     };
@@ -211,12 +211,12 @@ function App({ region, depCode }) {
   const [submitError, setSubmitError] = useState(null)
   const [activeTab, setActiveTab] = useState('accueil')
 
-  const pageTitle = region 
-    ? `Aménagement & Entretien de Tombes en ${region} (${depCode}) | STR` 
+  const pageTitle = region
+    ? `Aménagement & Entretien de Tombes en ${region} (${depCode}) | STR`
     : `STR | Une autre vision du funéraire - Aménagement & Mémoire Éternelle`;
-    
-  const pageDescription = region 
-    ? `Découvrez STR en ${region} (${depCode}). Aménagements paysagers funéraires sur-mesure, mémoriaux connectés QR Code, entretien et fleurissement de sépultures dans votre département.` 
+
+  const pageDescription = region
+    ? `Découvrez STR en ${region} (${depCode}). Aménagements paysagers funéraires sur-mesure, mémoriaux connectés QR Code, entretien et fleurissement de sépultures dans votre département.`
     : `Découvrez STR, une autre vision du funéraire en Loire (42), Haute-Loire (43) et Rhône (69). Aménagements paysagers sur-mesure, mémoriaux connectés par QR Code, entretien et fleurissement.`;
 
 
@@ -283,9 +283,13 @@ function App({ region, depCode }) {
       {/* HEADER & NAV */}
       <header className="header">
         <div className="container header-inner">
-          <div className="logo-container">
-            <img src={mainLogo} alt="STR - Une autre vision du funéraire" style={{ height: '45px', objectFit: 'contain' }} />
-          </div>
+          <a href="/" className="logo-container" style={{ textDecoration: 'none' }}>
+            <img src={logoTransparent} alt="STR - Une autre vision du funéraire" style={{ height: '45px', objectFit: 'contain' }} />
+            <span className="logo-tagline">
+              STR : Une autre vision<br />
+              du funéraire
+            </span>
+          </a>
 
           <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
             <a
@@ -309,7 +313,7 @@ function App({ region, depCode }) {
               Sépultures Paysagères
             </a>
             <a
-              href="#memoire"
+              href="/qrcode"
               className={`nav-link ${activeTab === 'memoire' ? 'active' : ''}`}
               onClick={() => {
                 setActiveTab('memoire');
@@ -374,13 +378,13 @@ function App({ region, depCode }) {
           id="accueil"
           className="hero animate-fade-in"
           style={{
-            backgroundImage: `url(${heroImage})`
+            backgroundImage: `url(${theme === 'dark' ? heroImageDark : heroImageLight})`
           }}
         >
           <div className="hero-overlay" />
           <div className="container hero-grid">
             <div className="hero-content">
-              <h1 className="hero-title">
+              <h1 className={`hero-title ${!region ? 'visually-hidden' : ''}`}>
                 {region ? (
                   <><span>STR en {region}</span> Votre expert funéraire<br />local ({depCode})</>
                 ) : (
@@ -388,14 +392,14 @@ function App({ region, depCode }) {
                 )}
               </h1>
               <p className="hero-description">
-                {region 
-                  ? `Prenez soin de la mémoire de vos proches en ${region}. Nous créons des espaces de paix naturels et assurons l'entretien des sépultures avec le plus grand respect dans tout le département.` 
-                  : `Prenez soin de la mémoire de vos proches, même à distance. Nous créons des espaces de paix naturels et durables, où le souvenir demeure vivant et apaisant.`
+                {region
+                  ? `Offrir une alternative au marbre traditionnel en ${region} : des sépultures paysagères naturelles et des mémoriaux numériques connectés qui réinventent l’hommage funéraire.`
+                  : `Offrir une alternative au marbre traditionnel : des sépultures paysagères naturelles et des mémoriaux numériques connectés qui réinventent l’hommage funéraire.`
                 }
               </p>
               <div className="hero-buttons">
                 <a href="#paysager" className="btn btn-primary">Découvrir nos créations</a>
-                <a href="#memoire" className="btn btn-secondary">Mémoriaux QR Code</a>
+                <a href="/qrcode" className="btn btn-gold">Mémoriaux QR Code</a>
               </div>
             </div>
           </div>
@@ -496,7 +500,7 @@ function App({ region, depCode }) {
           </div>
         </section>
 
-        {/* SECTION 2: MÉMOIRE ÉTERNELLE (SERVICE INNOVANT MEMORIALIS.SHOP) */}
+        {/* SECTION 2: MÉMOIRE ÉTERNELLE */}
         <section id="memoire" className="section section-dark">
           <div className="container">
             <div className="section-header">
@@ -554,12 +558,7 @@ function App({ region, depCode }) {
               </div>
             </div>
 
-            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'var(--text-secondary)' }}>
-              <span style={{ fontWeight: 500 }}>Partenariat exclusif avec :</span>
-              <a href="https://www.memorialis.shop/" target="_blank" rel="noopener noreferrer" className="partner-logo-link">
-                <img src={logoMemorialis} alt="Logo Memorialis.shop" style={{ height: '45px', objectFit: 'contain' }} />
-              </a>
-            </div>
+
 
             {/* Encadré d'information sur le concept */}
             <div className="memorial-demo">
@@ -608,38 +607,14 @@ function App({ region, depCode }) {
                   </div>
                 </div>
                 <span className="memorial-hint">
-                  Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir le mémorial d'exemple de STR & Memorialis.
+                  Scannez ou cliquez sur le QR Code virtuel ci-dessus pour découvrir notre mémorial d'exemple.
                 </span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* MODAL / POP-UP DE DÉMONSTRATION DU MÉMORIAL (MEMORIALIS) */}
-        {showMemorialModal && (
-          <div className="memorial-modal-overlay">
-            <div className="memorial-modal" style={{ padding: 0, overflow: 'hidden' }}>
-              <div style={{ padding: '16px 24px', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '18px', margin: 0 }}>Démonstration Interactive</h3>
-                <button
-                  onClick={() => setShowMemorialModal(false)}
-                  style={{
-                    background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer',
-                    color: 'var(--text-secondary)', padding: '0', lineHeight: 1
-                  }}
-                  aria-label="Fermer"
-                >
-                  ✕
-                </button>
-              </div>
-              <iframe
-                src="https://memorialis.shop/memorial/demo-memorial"
-                title="Démonstration Memorialis"
-                style={{ width: '100%', height: '75vh', minHeight: '500px', border: 'none', display: 'block' }}
-              />
-            </div>
-          </div>
-        )}
+
 
         {/* MODAL / POP-UP DE RÉALISATIONS */}
         {showRealizationsModal && (
@@ -656,17 +631,17 @@ function App({ region, depCode }) {
                 </button>
               </div>
               <div className="realizations-modal-content">
-                <BeforeAfterSlider 
+                <BeforeAfterSlider
                   beforeSrc={ent03Avant}
                   afterSrc={ent03Apres}
                   title="Nettoyage approfondi - Cimetière de Pont-Salomon"
                 />
-                <BeforeAfterSlider 
+                <BeforeAfterSlider
                   beforeSrc={ent02Avant}
                   afterSrc={ent02Apres}
                   title="Nettoyage approfondi - Tombe et soubassement"
                 />
-                <BeforeAfterSlider 
+                <BeforeAfterSlider
                   beforeSrc={ent01Avant}
                   afterSrc={ent01Apres}
                   title="Nettoyage & Restauration de la pierre"
@@ -685,8 +660,8 @@ function App({ region, depCode }) {
               <p className="section-description">
                 Pour vous assurer une tranquillité d'esprit à chaque instant, nous proposons des services d'entretien méticuleux et un fleurissement personnalisé de vos sépultures.
               </p>
-              <button 
-                className="btn btn-secondary" 
+              <button
+                className="btn btn-secondary"
                 style={{ marginTop: '24px' }}
                 onClick={() => setShowRealizationsModal(true)}
               >
@@ -721,22 +696,22 @@ function App({ region, depCode }) {
                 <div className="zones-list">
                   <div className="zone-item">
                     <span className="zone-badge">43</span>
-                    <span>Haute-Loire (Craponne, Le Puy...)</span>
+                    <span>Haute-Loire (Aurec-sur-Loire, Pradelles, Saint-Just-Malmont, Brioude)</span>
                   </div>
                   <div className="zone-item">
                     <span className="zone-badge">42</span>
-                    <span>Loire (St-Étienne, Firminy...)</span>
+                    <span>Loire (Roanne, Bourg-Argental, Rive-de-Gier, Noirétable)</span>
                   </div>
                   <div className="zone-item">
                     <span className="zone-badge">69</span>
-                    <span>Rhône (Lyon, Sud-Lyonnais...)</span>
+                    <span>Rhône (Belleville-en-Beaujolais, Condrieu, Genas, Tarare)</span>
                   </div>
                   <div className="zone-item">
                     <span className="zone-badge">AURA</span>
                     <span>Auvergne-Rhône-Alpes</span>
                   </div>
                 </div>
-                
+
                 <ZoneMap mainLogo={mainLogo} />
 
                 <div style={{
@@ -769,7 +744,7 @@ function App({ region, depCode }) {
         <section className="section" style={{ paddingTop: '0px', paddingBottom: '64px' }}>
           <div className="container">
             <div className="seo-local-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
-              
+
               <div className="seo-card" style={{ padding: '24px', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{ fontSize: '18px', marginBottom: '12px', color: 'var(--text-primary)' }}>Aménagement paysager funéraire</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
@@ -787,7 +762,7 @@ function App({ region, depCode }) {
               <div className="seo-card" style={{ padding: '24px', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{ fontSize: '18px', marginBottom: '12px', color: 'var(--text-primary)' }}>Plaque funéraire QR code</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                  Installation de mémoriaux numériques et plaques connectées dans le <strong>42</strong>, le <strong>43</strong> et le <strong>69</strong>. Offrez un espace de recueillement interactif pour perpétuer la mémoire familiale avec notre solution Memorialis, disponible sur tous nos secteurs d'intervention ou en expédition.
+                  Installation de mémoriaux numériques et plaques connectées dans le <strong>42</strong>, le <strong>43</strong> et le <strong>69</strong>. Offrez un espace de recueillement interactif pour perpétuer la mémoire familiale, disponible sur tous nos secteurs d'intervention ou en expédition.
                 </p>
               </div>
 
@@ -896,7 +871,7 @@ function App({ region, depCode }) {
                       onChange={handleInputChange}
                     >
                       <option value="creation">Conception de Sépulture Paysagère sur-mesure (Cimélo)</option>
-                      <option value="qrcode">Plaque Mémorielle connectée QR Code (Memorialis)</option>
+                      <option value="qrcode">Plaque Mémorielle connectée QR Code</option>
                       <option value="entretien">Entretien ponctuel ou fleurissement régulier</option>
                       <option value="renovation">Rénovation complète de sépulture ancienne</option>
                     </select>
@@ -950,7 +925,7 @@ function App({ region, depCode }) {
             <h5>Prestations</h5>
             <ul>
               <li><a href="#paysager">Sépultures Paysagères</a></li>
-              <li><a href="#memoire">Mémoriaux Connectés</a></li>
+              <li><a href="/qrcode">Mémoriaux Connectés</a></li>
               <li><a href="#services">Entretien & Rénovation</a></li>
               <li><a href="#services">Fleurissement Saisonniers</a></li>
             </ul>
@@ -961,7 +936,7 @@ function App({ region, depCode }) {
             <p style={{ fontSize: '13px' }}>📞 <a href="tel:+33788689382">07 88 68 93 82</a></p>
             <p style={{ fontSize: '13px' }}>📍 Intervention : 42, 43, 69...</p>
             <p style={{ fontSize: '13px', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '12px' }}>
-              En partenariat avec Cimélo & Memorialis.shop
+              En partenariat avec Cimélo
             </p>
           </div>
         </div>

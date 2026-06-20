@@ -23,7 +23,7 @@
   --text-on-dark: #ffffff;      /* Texte blanc sur fond sombre */
   
   --border-color: #d8d8ce;      /* Bordure douce sur fond sable */
-  --header-bg: rgba(230, 230, 218, 0.85);
+  --header-bg: rgba(230, 230, 218, 0.2); /* Plus transparent pour voir l'image derrière */
 
   /* Variables dynamiques pour éléments inlines */
   --memorial-corten-bg: linear-gradient(to bottom, #ffffff, #f4f4ec);
@@ -72,7 +72,7 @@
   --text-on-dark: #ffffff;      
   
   --border-color: rgba(255, 255, 255, 0.08); /* Bordure subtile */
-  --header-bg: rgba(10, 11, 13, 0.85);
+  --header-bg: rgba(10, 11, 13, 0.2); /* Plus transparent pour voir l'image derrière */
 
   /* Variables dynamiques pour éléments inlines */
   --memorial-corten-bg: linear-gradient(to bottom, #16191f, #0a0b0d);
@@ -140,6 +140,19 @@ button, input, textarea, select {
   flex: 1;
 }
 
+/* Utilitaires Accessibilité & SEO */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -148,10 +161,13 @@ button, input, textarea, select {
 
 /* Header & Navigation */
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   background: var(--header-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
   padding: 16px 0;
@@ -194,21 +210,17 @@ button, input, textarea, select {
 }
 
 .logo-tagline {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: 1px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
   color: var(--text-secondary);
-  text-transform: uppercase;
   margin-left: 8px;
   border-left: 1px solid var(--border-color);
   padding-left: 8px;
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .logo-tagline {
-    display: inline-block;
-  }
+  display: inline-block;
+  text-align: center;
 }
 
 .nav {
@@ -218,7 +230,7 @@ button, input, textarea, select {
   top: 72px; /* hauteur approx du header */
   left: 0;
   right: 0;
-  background: var(--header-bg);
+  background: var(--bg-secondary); /* Fond opaque au lieu de transparent */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
@@ -462,8 +474,8 @@ button, input, textarea, select {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding: 120px 0;
+  align-items: flex-start; /* Aligne le contenu en haut plutôt qu'au centre */
+  padding: 105px 0 60px 0; /* Padding-top de 105px pour laisser 25px de marge sous le header */
   position: relative;
   overflow: hidden;
   background-size: cover;
@@ -471,65 +483,45 @@ button, input, textarea, select {
   background-repeat: no-repeat;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .hero {
-    background-size: cover; /* Remplace contain pour une meilleure immersion */
-    background-position: center; /* Bureau: recentré */
+    background-size: 100% auto; /* L'image s'adapte à 100% de la largeur */
+    background-position: top center; /* Alignée en haut */
+    background-color: var(--bg-primary); /* Fond de transition */
+    min-height: unset; /* Annule la hauteur forcée à 100% de l'écran */
+    aspect-ratio: 16 / 9; /* Contraint la hauteur de la section à épouser les proportions de l'image */
   }
 }
 
 .hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Mobile : Dégradé vertical plus fluide pour lisibilité */
-  background: linear-gradient(to bottom, rgba(230, 230, 218, 0.9) 0%, rgba(230, 230, 218, 0.5) 50%, rgba(230, 230, 218, 0.95) 100%);
-  z-index: 1;
-  transition: background 0.4s ease;
-}
-
-@media (min-width: 992px) {
-  .hero-overlay {
-    /* Grand écran : lisibilité au centre */
-    background: radial-gradient(circle at center, rgba(230, 230, 218, 0.8) 0%, transparent 60%);
-  }
-}
-
-[data-theme="dark"] .hero-overlay {
-  background: linear-gradient(to bottom, rgba(10, 11, 13, 0.9) 0%, rgba(10, 11, 13, 0.6) 50%, rgba(10, 11, 13, 0.95) 100%);
-}
-
-@media (min-width: 992px) {
-  [data-theme="dark"] .hero-overlay {
-    background: radial-gradient(circle at center, rgba(10, 11, 13, 0.7) 0%, transparent 60%);
-  }
+  display: none; /* Désactivé : on utilise désormais un fond sur le texte à la place du dégradé global */
 }
 
 .hero-grid {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end; /* Le bloc entier reste à droite de l'écran */
   position: relative;
   z-index: 2;
+  /* Plus besoin de transform: translateY, géré par le flex-start du parent */
 }
 
 @media (min-width: 992px) {
   .hero-grid {
-    align-items: center;
-    text-align: center;
+    align-items: flex-end; /* Le bloc entier reste à droite de l'écran */
+    text-align: left; /* Le texte à l'intérieur est aligné à gauche */
+    /* Plus besoin de transform */
   }
 }
 
 .hero-content {
-  text-align: left;
+  text-align: left; /* Texte aligné à gauche à l'intérieur du bloc */
   max-width: 750px;
 }
 
 @media (min-width: 992px) {
   .hero-content {
-    text-align: center;
+    text-align: left; /* Texte aligné à gauche à l'intérieur du bloc */
   }
 }
 
@@ -576,28 +568,41 @@ button, input, textarea, select {
 }
 
 .hero-description {
+  font-family: var(--font-serif); /* Utilise la même police (Playfair Display) que les titres */
   font-size: 18px;
   color: var(--text-primary);
-  margin-bottom: 36px;
+  margin-bottom: 16px;
   max-width: 680px;
-  opacity: 0.9;
+  background: var(--header-bg); /* Même transparence que le menu */
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px); /* Même effet de flou que le menu */
+  -webkit-backdrop-filter: blur(8px);
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .hero-description {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 @media (min-width: 992px) {
   .hero-description {
-    margin: 0 auto 36px auto;
+    margin: 0 0 16px 0; /* Aligné à gauche avec une marge inférieure réduite */
+    padding: 20px 24px;
   }
 }
 
 .hero-buttons {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start; /* Boutons alignés à gauche dans le bloc */
   gap: 16px;
 }
 
 @media (min-width: 992px) {
   .hero-buttons {
-    justify-content: center;
+    justify-content: flex-start; /* Boutons alignés à gauche dans le bloc */
   }
 }
 
@@ -1288,7 +1293,7 @@ textarea.form-control {
   animation: fadeIn 0.8s ease forwards;
 }
 
-/* ================== RESPONSIVE MODAL COMPONENT (MEMORIALIS) ================== */
+/* ================== RESPONSIVE MODAL COMPONENT ================== */
 .memorial-modal-overlay {
   position: fixed;
   top: 0;
